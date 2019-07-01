@@ -1,4 +1,38 @@
 # YAMExtensions
 
-## 项目介绍
-在使用 OC项目中 @iibireme 大神开发的YYKit的扩展非常好用，但是在swift项目里会有部分功能无法使用与由于身体原因代码没有更新新，所以参考YYKit中的部分个人常用分类写了swift版本的扩展，可以提高代码开发效率以及减小包的体积~
+功能丰富的扩展类工具库。
+（此工具库参考YYKit中 [YYCategories](https://github.com/ibireme/YYCategories)，方便swift开发者使用，可大大的提升开发效率）
+
+## 已完成类
+UIKit: 
+    * CALayer
+    * UIApplication
+    * UIBarButtonItem
+    * UIBezierPath
+    * UIButton
+    * UIColor
+    * UIControl
+    * UIDevice
+    * UIFont
+    * UIGestureRecognizer
+    * UIImage
+    * UINavigationController
+    * UIScreen
+    * UIScrollView
+    * UITableView
+    * UITextField
+    * UIView
+Foundation: 
+    * Array
+    * Data
+    * Date
+    * Dictionary
+    * DispatchQueue
+    * NSObject
+    * Notification
+    * String
+    * Timer
+    
+
+
+
