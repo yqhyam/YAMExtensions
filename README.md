@@ -4,8 +4,8 @@
 （此工具库参考YYKit中 [YYCategories](https://github.com/ibireme/YYCategories) 加上个人使用的一些扩展方法，方便swift开发者使用，可大大的提升开发效率）
 
 ## 已完成类
-UIKit: 
-* CALayer
+* UIKit: 
+    * CALayer
     * UIApplication
     * UIBarButtonItem
     * UIBezierPath
@@ -22,7 +22,8 @@ UIKit:
     * UITableView
     * UITextField
     * UIView
-Foundation: 
+    
+* Foundation: 
     * Array
     * Data
     * Date
