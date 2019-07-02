@@ -9,6 +9,16 @@
 
 DEMO内容完成中··
 
+## 安装
+
+### CocoaPods
+1. 在Podfile中添加``` pod 'YAMExtensions' ```
+2. 执行``` pod install``` 或 ``` pod update ```
+
+### 手动安装
+1. 下载YAMExtensions文件夹内所有内容。
+2. 将YAMExtensions文件夹添加至你的工程。
+
 ## 已完成类
 * UIKit: 
     * CALayer
