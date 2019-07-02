@@ -8,149 +8,149 @@
 
 import UIKit
 
-extension YamEx where Base: Layer {
+extension CALayer {
 
     public var left: CGFloat {
         set{
-            var frame = base.frame
+            var frame = self.frame
             frame.origin.x = newValue
-            base.frame = frame
+            self.frame = frame
         }
         get{
-            return base.frame.origin.x
+            return self.frame.origin.x
         }
     }
     
     public var top: CGFloat {
         set{
-            var frame = base.frame
+            var frame = self.frame
             frame.origin.y = newValue
-            base.frame = frame
+            self.frame = frame
         }
         get{
-            return base.frame.origin.y
+            return self.frame.origin.y
         }
     }
     
     public var right: CGFloat {
         set{
-            var frame = base.frame
+            var frame = self.frame
             frame.origin.x = newValue - frame.size.width
-            base.frame = frame
+            self.frame = frame
         }
         get{
-            return base.frame.origin.x + base.frame.size.width
+            return self.frame.origin.x + self.frame.size.width
         }
     }
     
     public var bottom: CGFloat {
         set{
-            var frame = base.frame
-            frame.origin.y = newValue - base.frame.size.height
-            base.frame = frame
+            var frame = self.frame
+            frame.origin.y = newValue - self.frame.size.height
+            self.frame = frame
         }
         get{
-            return base.frame.origin.y + base.frame.size.height
+            return self.frame.origin.y + self.frame.size.height
         }
     }
     
     public var width: CGFloat {
         set{
-            var frame = base.frame
+            var frame = self.frame
             frame.size.width = newValue
-            base.frame = frame
+            self.frame = frame
         }
         get{
-            return base.frame.size.width
+            return self.frame.size.width
         }
     }
     
     public var height: CGFloat {
         set{
-            var frame = base.frame
+            var frame = self.frame
             frame.size.height = newValue
-            base.frame = frame
+            self.frame = frame
         }
         get{
-            return base.frame.size.height
+            return self.frame.size.height
         }
     }
     
     public var centerX: CGFloat {
         set{
-            var frame = base.frame
-            frame.origin.x = newValue - base.frame.size.width * 0.5
-            base.frame = frame
+            var frame = self.frame
+            frame.origin.x = newValue - self.frame.size.width * 0.5
+            self.frame = frame
         }
         get{
-            return base.frame.origin.x + base.frame.size.width * 0.5
+            return self.frame.origin.x + self.frame.size.width * 0.5
         }
     }
     
     public var centerY: CGFloat {
         set{
-            var frame = base.frame
-            frame.origin.y = newValue - base.frame.size.height * 0.5
-            base.frame = frame
+            var frame = self.frame
+            frame.origin.y = newValue - self.frame.size.height * 0.5
+            self.frame = frame
         }
         get{
-            return base.frame.origin.y + base.frame.size.height * 0.5
+            return self.frame.origin.y + self.frame.size.height * 0.5
         }
     }
     
     public var origin: CGPoint {
         set{
-            var frame = base.frame
+            var frame = self.frame
             frame.origin = newValue
-            base.frame = frame
+            self.frame = frame
         }
         get{
-            return base.frame.origin
+            return self.frame.origin
         }
     }
     
     public var size: CGSize {
         set{
-            var frame = base.frame
+            var frame = self.frame
             frame.size = newValue
-            base.frame = frame
+            self.frame = frame
         }
         get{
-            return base.frame.size
+            return self.frame.size
         }
     }
     
     public var transformRotation: CGFloat {
         set{
-            base.setValue(newValue, forKeyPath: "transform.rotation")
+            self.setValue(newValue, forKeyPath: "transform.rotation")
         }
         get{
-            let v = base.value(forKeyPath: "transform.rotation")
+            let v = self.value(forKeyPath: "transform.rotation")
             return v as! CGFloat
         }
     }
     
     public func removeAllSublayers() {
-        for layer in base.sublayers! {
+        for layer in self.sublayers! {
             layer.removeFromSuperlayer()
         }
     }
     
     public func setLayerShadow(color: UIColor, offset: CGSize, radius: CGFloat) {
         
-        base.shadowColor = color.cgColor
-        base.shadowOffset = offset
-        base.shadowRadius = radius
-        base.shadowOpacity = 1
-        base.shouldRasterize = true
-        base.rasterizationScale = UIScreen.main.scale
+        self.shadowColor = color.cgColor
+        self.shadowOffset = offset
+        self.shadowRadius = radius
+        self.shadowOpacity = 1
+        self.shouldRasterize = true
+        self.rasterizationScale = UIScreen.main.scale
         
     }
     
     public func snapshotImage() -> UIImage {
         
-        UIGraphicsBeginImageContextWithOptions(base.bounds.size, base.isOpaque, 0)
-        base.render(in: UIGraphicsGetCurrentContext()!)
+        UIGraphicsBeginImageContextWithOptions(self.bounds.size, self.isOpaque, 0)
+        self.render(in: UIGraphicsGetCurrentContext()!)
         
         let snap = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
@@ -158,36 +158,38 @@ extension YamEx where Base: Layer {
         
     }
     
-    public func addFadeAnimation(with duration: TimeInterval, curve: UIViewAnimationCurve) {
+    public func addFadeAnimation(with duration: TimeInterval, curve: UIView.AnimationCurve) {
         
         if duration <= 0 {
             return
         }
         
-        var mediaFunction: String = ""
+        var mediaFunction: CAMediaTimingFunctionName = .default
         
         switch curve {
             
         case .easeInOut:
-            mediaFunction = kCAMediaTimingFunctionEaseInEaseOut
+            mediaFunction = CAMediaTimingFunctionName.easeInEaseOut
         case .easeIn:
-            mediaFunction = kCAMediaTimingFunctionEaseIn
+            mediaFunction = CAMediaTimingFunctionName.easeIn
         case .easeOut:
-            mediaFunction = kCAMediaTimingFunctionEaseOut
+            mediaFunction = CAMediaTimingFunctionName.easeOut
         case .linear:
-            mediaFunction = kCAMediaTimingFunctionLinear
+            mediaFunction = CAMediaTimingFunctionName.linear
+        default:
+            break
         }
         
         let transition = CATransition()
         transition.duration = duration
         transition.timingFunction = CAMediaTimingFunction(name: mediaFunction)
-        transition.type = kCATransitionFade
-        base.add(transition, forKey: "yam.fade")
+        transition.type = CATransitionType.fade
+        self.add(transition, forKey: "yam.fade")
         
     }
     
     public func removePreviousFadeAnimation() {
-        base.removeAnimation(forKey: "yam.fade")
+        self.removeAnimation(forKey: "yam.fade")
     }
 }
 
@@ -203,7 +205,7 @@ extension CALayer {
 
 extension CATextLayer {
     /// retuan a text layer
-    class func layer(withText text: String, mode: String, font: UIFont) -> CATextLayer {
+    class func layer(withText text: String, mode: CATextLayerAlignmentMode, font: UIFont) -> CATextLayer {
         
         let layer = CATextLayer()
         layer.string = text

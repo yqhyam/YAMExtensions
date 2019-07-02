@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension YamEx where Base: Application {
+extension UIApplication {
     
     /**
      'Documents' folder in app`s sandbox
@@ -64,7 +64,7 @@ extension YamEx where Base: Application {
     
     /// Wether this app is not install from appstroe
     var isPirated: Bool {
-        if UIDevice.current.ye.isSimulator { return true }
+        if UIDevice.current.isSimulator { return true }
         if getgid() <= 10 { return true } /// process ID shouldn't be root
         if (Bundle.main.infoDictionary!["SignerIdentity"] != nil) { return true }
         if yam_fileExistInMainBundle(name: "_CodeSignature") { return true }

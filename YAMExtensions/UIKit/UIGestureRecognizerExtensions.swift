@@ -25,7 +25,7 @@ class YAMUIGestureRecognizerBlockTarget {
     }
 }
 
-extension YamEx where Base: GestureRecognizer {
+extension UIGestureRecognizer {
     
     fileprivate var invoke: Selector {
         return #selector(YAMUIGestureRecognizerBlockTarget.invoke(_:))
@@ -33,8 +33,8 @@ extension YamEx where Base: GestureRecognizer {
     
     func addAction(block: @escaping (_ sender: Any) -> ()) {
         
-        let target = YAMUIGestureRecognizerBlockTarget(attachTo: base, block: block)
-        base.addTarget(target, action: invoke)
+        let target = YAMUIGestureRecognizerBlockTarget(attachTo: self, block: block)
+        self.addTarget(target, action: invoke)
         
         var targets = yam_allUIGestureRecognizerBlockTargets()
         targets.append(target)
@@ -44,15 +44,15 @@ extension YamEx where Base: GestureRecognizer {
         
         var targets = yam_allUIGestureRecognizerBlockTargets()
         for target in targets {
-            base.removeTarget(target, action: invoke)
+            self.removeTarget(target, action: invoke)
         }
         targets.removeAll()
     }
     
     fileprivate func yam_allUIGestureRecognizerBlockTargets() -> [YAMUIGestureRecognizerBlockTarget] {
-        guard var targets = objc_getAssociatedObject(base, &gestureRecognizerArrayKey) else { return [] }
+        guard var targets = objc_getAssociatedObject(self, &gestureRecognizerArrayKey) else { return [] }
         targets = []
-        objc_setAssociatedObject(base, &gestureRecognizerArrayKey, targets, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        objc_setAssociatedObject(self, &gestureRecognizerArrayKey, targets, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         return targets as! [YAMUIGestureRecognizerBlockTarget]
     }
 }
@@ -61,6 +61,6 @@ extension UIGestureRecognizer {
 
     convenience init(with action: @escaping (_ sender: Any) -> ()) {
         self.init()
-        self.ye.addAction(block: action)
+        self.addAction(block: action)
     }
 }

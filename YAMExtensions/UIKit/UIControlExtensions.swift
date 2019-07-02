@@ -11,9 +11,9 @@ import UIKit
 class YAMUIControllBlockTarget {
     
     var block: yam_controlBlock!
-    var events: UIControlEvents!
+    var events: UIControl.Event!
     
-    init(attachTo: AnyObject,block: @escaping yam_controlBlock, events: UIControlEvents) {
+    init(attachTo: AnyObject,block: @escaping yam_controlBlock, events: UIControl.Event) {
         
         self.block = block
         self.events = events
@@ -38,7 +38,7 @@ class YAMUIControllBlockTarget {
 private var yam_controllKey: Void?
 typealias yam_controlBlock = ((_ sender: Any) -> Void)
 
-extension YamEx where Base: Control {
+extension UIControl {
     
     fileprivate var invoke: Selector {
         return #selector(YAMUIControllBlockTarget.invoke(sender:))
@@ -47,55 +47,55 @@ extension YamEx where Base: Control {
     /**
      添加一个闭包
      */
-    func addBlock(for events: UIControlEvents, block: @escaping yam_controlBlock){
+    func addBlock(for events: UIControl.Event, block: @escaping yam_controlBlock){
         
-        let target = YAMUIControllBlockTarget(attachTo: base, block: block, events: events)
-        base.addTarget(target, action: invoke, for: events)
+        let target = YAMUIControllBlockTarget(attachTo: self, block: block, events: events)
+        self.addTarget(target, action: invoke, for: events)
         
         var array = yam_allUIControlBlockTargets()
         array.append(target)
     }
     
-    func setBlock(for events: UIControlEvents, block: @escaping yam_controlBlock){
+    func setBlock(for events: UIControl.Event, block: @escaping yam_controlBlock){
         
         self.addBlock(for: events, block: block)
     }
     
-    func setTarget(_ target: Any, action: Selector, for controlEvents: UIControlEvents){
+    func setTarget(_ target: Any, action: Selector, for controlEvents: UIControl.Event){
         
-        let targets = base.allTargets
+        let targets = self.allTargets
         for currrentTarget in targets {
-            guard let actions = base.actions(forTarget: currrentTarget, forControlEvent: controlEvents) else {
+            guard let actions = self.actions(forTarget: currrentTarget, forControlEvent: controlEvents) else {
                 return
             }
             for currentAction in actions {
-                base.removeTarget(currrentTarget, action: NSSelectorFromString(currentAction), for: controlEvents)
+                self.removeTarget(currrentTarget, action: NSSelectorFromString(currentAction), for: controlEvents)
             }
         }
-        base.addTarget(target, action: action, for: controlEvents)
+        self.addTarget(target, action: action, for: controlEvents)
     }
     
-    func removeAllBlocks(for eveents: UIControlEvents) {
+    func removeAllBlocks(for eveents: UIControl.Event) {
         
         let targets = yam_allUIControlBlockTargets()
         var removes = Array<YAMUIControllBlockTarget>()
         for target in targets {
             guard let newEvent = target.events else {
-                base.removeTarget(target, action: invoke, for: target.events)
+                self.removeTarget(target, action: invoke, for: target.events)
                 removes.append(target)
                 return
             }
-            base.removeTarget(target, action: invoke, for: target.events)
+            self.removeTarget(target, action: invoke, for: target.events)
             target.events = newEvent
-            base.addTarget(target, action: invoke, for: target.events)
+            self.addTarget(target, action: invoke, for: target.events)
         }
         
     }
     
     func removeAllTargets() {
         
-        for obj in base.allTargets {
-            base.removeTarget(obj, action: nil, for: .allEvents)
+        for obj in self.allTargets {
+            self.removeTarget(obj, action: nil, for: .allEvents)
         }
         
         var array = yam_allUIControlBlockTargets()

@@ -8,30 +8,30 @@
 
 import UIKit
 
-extension YamEx where Base: ScrollView {
+extension UIScrollView {
     
     func scrollToTop(isAnimated: Bool) {
-        var off = base.contentOffset
-        off.y = 0 - base.contentInset.top
-        base.setContentOffset(off, animated: isAnimated)
+        var off = self.contentOffset
+        off.y = 0 - self.contentInset.top
+        self.setContentOffset(off, animated: isAnimated)
     }
     
     func scrollToLeft(isAnimated: Bool) {
-        var off = base.contentOffset
-        off.x = 0 - base.contentInset.left
-        base.setContentOffset(off, animated: isAnimated)
+        var off = self.contentOffset
+        off.x = 0 - self.contentInset.left
+        self.setContentOffset(off, animated: isAnimated)
     }
     
     func scrollToBottom(isAnimated: Bool) {
-        var off = base.contentOffset
-        off.y = base.contentSize.height - base.bounds.size.height + base.contentInset.bottom
-        base.setContentOffset(off, animated: isAnimated)
+        var off = self.contentOffset
+        off.y = self.contentSize.height - self.bounds.size.height + self.contentInset.bottom
+        self.setContentOffset(off, animated: isAnimated)
     }
     
     func scrollToRight(isAnimated: Bool) {
-        var off = base.contentOffset
-        off.x = base.contentSize.width - base.bounds.width + base.contentInset.right
-        base.setContentOffset(off, animated: isAnimated)
+        var off = self.contentOffset
+        off.x = self.contentSize.width - self.bounds.width + self.contentInset.right
+        self.setContentOffset(off, animated: isAnimated)
     }
     
     func scrollToTop() {

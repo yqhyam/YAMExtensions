@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension YamEx where Base: Device {
+extension UIDevice {
     
     var machineModel: String {
         var size = 0
@@ -19,9 +19,9 @@ extension YamEx where Base: Device {
         return model
     }
     
-    class var systemVersion: Double {
-        let version = Double(UIDevice.current.systemVersion)
-        return version ?? 0.0
+    class var systemVersion: String {
+        let os = ProcessInfo().operatingSystemVersion
+        return String(os.majorVersion) + "." + String(os.minorVersion) + "." + String(os.patchVersion)
     }
     
     var isPad: Bool {

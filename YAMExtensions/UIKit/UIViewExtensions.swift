@@ -8,127 +8,127 @@
 
 import UIKit
 
-extension YamEx where Base: View {
+extension UIView {
     
     public var left: CGFloat {
         set{
-            var frame = base.frame
+            var frame = self.frame
             frame.origin.x = newValue
-            base.frame = frame
+            self.frame = frame
         }
         get{
-            return base.frame.origin.x
+            return self.frame.origin.x
         }
     }
 
     public var top: CGFloat {
         set{
-            var frame = base.frame
+            var frame = self.frame
             frame.origin.y = newValue
-            base.frame = frame
+            self.frame = frame
         }
         get{
-            return base.frame.origin.y
+            return self.frame.origin.y
         }
     }
     
     public var right: CGFloat {
         set{
-            var frame = base.frame
+            var frame = self.frame
             frame.origin.x = newValue - frame.size.width
-            base.frame = frame
+            self.frame = frame
         }
         get{
-            return base.frame.origin.x + base.frame.size.width
+            return self.frame.origin.x + self.frame.size.width
         }
     }
     
     public var bottom: CGFloat {
         set{
-            var frame = base.frame
-            frame.origin.y = newValue - base.frame.size.height
-            base.frame = frame
+            var frame = self.frame
+            frame.origin.y = newValue - self.frame.size.height
+            self.frame = frame
         }
         get{
-            return base.frame.origin.y + base.frame.size.height
+            return self.frame.origin.y + self.frame.size.height
         }
     }
     
     public var width: CGFloat {
         set{
-            var frame = base.frame
+            var frame = self.frame
             frame.size.width = newValue
-            base.frame = frame
+            self.frame = frame
         }
         get{
-            return base.frame.size.width
+            return self.frame.size.width
         }
     }
     
     public var height: CGFloat {
         set{
-            var frame = base.frame
+            var frame = self.frame
             frame.size.height = newValue
-            base.frame = frame
+            self.frame = frame
         }
         get{
-            return base.frame.size.height
+            return self.frame.size.height
         }
     }
     
     public var centerX: CGFloat {
         set{
-            base.center = CGPoint(x: newValue, y: base.center.y)
+            self.center = CGPoint(x: newValue, y: self.center.y)
         }
         get{
-            return base.center.x
+            return self.center.x
         }
     }
     
     public var centerY: CGFloat {
         set{
-            base.center = CGPoint(x: base.center.x, y: newValue)
+            self.center = CGPoint(x: self.center.x, y: newValue)
         }
         get{
-            return base.center.y
+            return self.center.y
         }
     }
     
     public var origin: CGPoint {
         set{
-            var frame = base.frame
+            var frame = self.frame
             frame.origin = newValue
-            base.frame = frame
+            self.frame = frame
         }
         get{
-            return base.frame.origin
+            return self.frame.origin
         }
     }
     
     public var size: CGSize {
         set{
-            var frame = base.frame
+            var frame = self.frame
             frame.size = newValue
-            base.frame = frame
+            self.frame = frame
         }
         get{
-            return base.frame.size
+            return self.frame.size
         }
     }
     
     public func removeAllSubviews() {
-        for view in base.subviews {
+        for view in self.subviews {
             view.removeFromSuperview()
         }
     }
     
     public func snapshotImage() -> UIImage? {
         
-        guard base.frame.height > 0 && base.frame.size.width > 0 else {
+        guard self.frame.height > 0 && self.frame.size.width > 0 else {
             return nil
         }
-        UIGraphicsBeginImageContextWithOptions(base.bounds.size, base.isOpaque, 0)
-        base.layer.render(in: UIGraphicsGetCurrentContext()!)
+        UIGraphicsBeginImageContextWithOptions(self.bounds.size, self.isOpaque, 0)
+        self.layer.render(in: UIGraphicsGetCurrentContext()!)
         
         let snap = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
@@ -138,18 +138,18 @@ extension YamEx where Base: View {
     
     public func setLayerShadow(color: UIColor, offset: CGSize, radius: CGFloat) {
         
-        base.layer.shadowColor = color.cgColor
-        base.layer.shadowOffset = offset
-        base.layer.shadowRadius = radius
-        base.layer.shadowOpacity = 1
-        base.layer.shouldRasterize = true
-        base.layer.rasterizationScale = UIScreen.main.scale
+        self.layer.shadowColor = color.cgColor
+        self.layer.shadowOffset = offset
+        self.layer.shadowRadius = radius
+        self.layer.shadowOpacity = 1
+        self.layer.shouldRasterize = true
+        self.layer.rasterizationScale = UIScreen.main.scale
         
     }
     
     func viewController() -> UIViewController? {
         
-        if let view = base.superview {
+        if let view = self.superview {
             let nextResponder = view.next
             if (nextResponder?.isKind(of: UIViewController.self))! {
                 return nextResponder as? UIViewController

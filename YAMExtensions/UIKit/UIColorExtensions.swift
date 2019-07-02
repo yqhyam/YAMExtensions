@@ -9,7 +9,7 @@
 
 import UIKit
 
-extension YamEx where Base: Color {
+extension UIColor {
 
     static func colorWith(r: CGFloat, g: CGFloat, b: CGFloat) -> UIColor {
         return UIColor(red: r/255.0, green: g/255.0, blue: b/255.0, alpha: 1.0)
