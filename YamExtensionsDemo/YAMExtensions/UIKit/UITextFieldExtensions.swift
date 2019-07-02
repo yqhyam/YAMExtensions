@@ -8,18 +8,18 @@
 
 import UIKit
 
-extension YamEx where Base: TextField {
+extension UITextField {
     
     func selectAllText() {
-        let range = base.textRange(from: base.beginningOfDocument, to: base.endOfDocument)
-        base.selectedTextRange = range
+        let range = self.textRange(from: self.beginningOfDocument, to: self.endOfDocument)
+        self.selectedTextRange = range
     }
     
     func setSelected(range: NSRange) {
-        let beginning = base.beginningOfDocument
-        let startPosition = base.position(from: beginning, offset: range.location)
-        let endPosition = base.position(from: beginning, offset: NSMaxRange(range))
-        let selectionRange = base.textRange(from: startPosition!, to: endPosition!)
-        base.selectedTextRange = selectionRange
+        let beginning = self.beginningOfDocument
+        let startPosition = self.position(from: beginning, offset: range.location)
+        let endPosition = self.position(from: beginning, offset: NSMaxRange(range))
+        let selectionRange = self.textRange(from: startPosition!, to: endPosition!)
+        self.selectedTextRange = selectionRange
     }
 }

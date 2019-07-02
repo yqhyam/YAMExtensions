@@ -18,7 +18,7 @@ class NavViewController: UIViewController {
         
         let backItem = UIBarButtonItem()
         backItem.title = "click"
-        backItem.ye.actionBlock = { [weak self] i in
+        backItem.actionBlock = { [weak self] i in
             self?.dismiss(animated: true, completion: nil)
         }
         self.navigationItem.leftBarButtonItem = backItem

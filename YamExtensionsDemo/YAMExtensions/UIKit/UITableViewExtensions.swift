@@ -8,54 +8,54 @@
 
 import UIKit
 
-extension YamEx where Base: TableView {
+extension UITableView {
     
     func update(with block: (_ tableView: UITableView) -> ()) {
-        base.beginUpdates()
-        block(base)
-        base.endUpdates()
+        self.beginUpdates()
+        block(self)
+        self.endUpdates()
     }
     
-    func scrollTo(row: NSInteger, in section: NSInteger, at ScrollPosition: UITableViewScrollPosition, animated: Bool){
+    func scrollTo(row: NSInteger, in section: NSInteger, at ScrollPosition: UITableView.ScrollPosition, animated: Bool){
         let indexPath = IndexPath(row: row, section: section)
-        base.scrollToRow(at: indexPath, at: ScrollPosition, animated: animated)
+        self.scrollToRow(at: indexPath, at: ScrollPosition, animated: animated)
     }
     
-    func insert(row: NSInteger, in section: NSInteger, with rowAnimation: UITableViewRowAnimation) {
+    func insert(row: NSInteger, in section: NSInteger, with rowAnimation: UITableView.RowAnimation) {
         let indexPath = IndexPath(row: row, section: section)
-        base.insertRows(at: [indexPath], with: rowAnimation)
+        self.insertRows(at: [indexPath], with: rowAnimation)
     }
     
-    func reload(row: NSInteger, in section: NSInteger, with rowAnimation: UITableViewRowAnimation) {
+    func reload(row: NSInteger, in section: NSInteger, with rowAnimation: UITableView.RowAnimation) {
         let indexPath = IndexPath(row: row, section: section)
-        base.reloadRows(at: [indexPath], with: rowAnimation)
+        self.reloadRows(at: [indexPath], with: rowAnimation)
     }
     
-    func delete(row: NSInteger, in section: NSInteger, with rowAnimation: UITableViewRowAnimation) {
+    func delete(row: NSInteger, in section: NSInteger, with rowAnimation: UITableView.RowAnimation) {
         let indexPath = IndexPath(row: row, section: section)
-        base.deleteRows(at: [indexPath], with: rowAnimation)
+        self.deleteRows(at: [indexPath], with: rowAnimation)
     }
     
-    func insert(at indexPath: IndexPath, with rowAnimation: UITableViewRowAnimation) {
-        base.insertRows(at: [indexPath], with: rowAnimation)
+    func insert(at indexPath: IndexPath, with rowAnimation: UITableView.RowAnimation) {
+        self.insertRows(at: [indexPath], with: rowAnimation)
     }
     
-    func reload(at indexPath: IndexPath, with rowAnimation: UITableViewRowAnimation) {
-        base.reloadRows(at: [indexPath], with: rowAnimation)
+    func reload(at indexPath: IndexPath, with rowAnimation: UITableView.RowAnimation) {
+        self.reloadRows(at: [indexPath], with: rowAnimation)
     }
     
-    func delete(at indexPath: IndexPath, with rowAnimation: UITableViewRowAnimation) {
-        base.deleteRows(at: [indexPath], with: rowAnimation)
+    func delete(at indexPath: IndexPath, with rowAnimation: UITableView.RowAnimation) {
+        self.deleteRows(at: [indexPath], with: rowAnimation)
     }
     
-    func reload(section: NSInteger, with rowAnimation: UITableViewRowAnimation) {
-        base.reloadSections([section], with: rowAnimation)
+    func reload(section: NSInteger, with rowAnimation: UITableView.RowAnimation) {
+        self.reloadSections([section], with: rowAnimation)
     }
     
     func clearSelectedRows(animated: Bool) {
-        guard let indexs = base.indexPathsForSelectedRows else { return }
+        guard let indexs = self.indexPathsForSelectedRows else { return }
         for path in indexs {
-            base.deselectRow(at: path, animated: animated)
+            self.deselectRow(at: path, animated: animated)
         }
     }
 }

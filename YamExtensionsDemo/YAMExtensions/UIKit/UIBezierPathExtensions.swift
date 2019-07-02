@@ -14,9 +14,9 @@ extension UIBezierPath {
       generated from the specified font.
      */
     public class func bezierPath(with text: String, font: UIFont) -> UIBezierPath{
-        let ctFont = font.ye.toCTFont()
+        let ctFont = font.toCTFont()
         let attrs = [kCTFontAttributeName: ctFont]
-        let attrString = NSAttributedString(string: text, attributes: attrs as [NSAttributedStringKey : Any])
+        let attrString = NSAttributedString(string: text, attributes: attrs as [NSAttributedString.Key : Any])
         
         let line = CTLineCreateWithAttributedString(attrString)
         let cgPath = CGMutablePath()

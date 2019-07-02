@@ -29,17 +29,17 @@ class YAMUIBarButtonItemBlockTarget {
     }
 }
 
-extension YamEx where Base: BarButtonItem {
+extension UIBarButtonItem {
     
     public var actionBlock: (_ sender: UIBarButtonItem) -> () {
         set{
-            let target = YAMUIBarButtonItemBlockTarget(attachTo: base, block: newValue)
-            objc_setAssociatedObject(base, &barButtomItemBlockKey, target, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-            base.target = target
-            base.action = #selector(YAMUIBarButtonItemBlockTarget.invoke(sender:))
+            let target = YAMUIBarButtonItemBlockTarget(attachTo: self, block: newValue)
+            objc_setAssociatedObject(self, &barButtomItemBlockKey, target, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            self.target = target
+            self.action = #selector(YAMUIBarButtonItemBlockTarget.invoke(sender:))
         }
         get{
-            let target = objc_getAssociatedObject(base, &barButtomItemBlockKey) as? YAMUIBarButtonItemBlockTarget
+            let target = objc_getAssociatedObject(self, &barButtomItemBlockKey) as? YAMUIBarButtonItemBlockTarget
             return (target?.block)!
         }
     }

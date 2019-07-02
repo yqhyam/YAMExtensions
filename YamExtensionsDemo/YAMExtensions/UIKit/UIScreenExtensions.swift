@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension YamEx where Base: Screen {
+extension UIScreen {
     
     class var screenScale: CGFloat {
         return UIScreen.main.scale
@@ -19,8 +19,9 @@ extension YamEx where Base: Screen {
     }
     
     func bounds(for orientation: UIInterfaceOrientation) -> CGRect {
-        var bounds = base.bounds
-        if UIInterfaceOrientationIsLandscape(orientation) {
+        var bounds = self.bounds
+        
+        if orientation.isLandscape {
             let buffer = bounds.size.width
             bounds.size.width = bounds.size.height
             bounds.size.height = buffer
@@ -31,8 +32,8 @@ extension YamEx where Base: Screen {
     var sizeInPixel: CGSize {
         var size = CGSize.zero
         
-        if UIScreen.main.isEqual(base) {
-            let model = UIDevice.current.ye.machineModel
+        if UIScreen.main.isEqual(self) {
+            let model = UIDevice.current.machineModel
             if model.hasPrefix("iPhone") {
                 if model.hasPrefix("iPhone1") { size = CGSize(width: 320, height: 480) }
                 else if model.hasPrefix("iPhone2") { size = CGSize(width: 320, height: 480) }
@@ -82,12 +83,12 @@ extension YamEx where Base: Screen {
         }
         
         if __CGSizeEqualToSize(size, CGSize.zero) {
-            if base.responds(to: #selector(getter: UIScreen.nativeBounds)) {
-                size = base.nativeBounds.size
+            if self.responds(to: #selector(getter: UIScreen.nativeBounds)) {
+                size = self.nativeBounds.size
             } else {
-                size = base.bounds.size
-                size.width *= base.scale
-                size.height *= base.scale
+                size = self.bounds.size
+                size.width *= self.scale
+                size.height *= self.scale
             }
             if size.height < size.width {
                 let tmp: CGFloat = size.height
@@ -101,8 +102,8 @@ extension YamEx where Base: Screen {
     var pixelsPerInch: CGFloat {
         
         var ppi: CGFloat = 0
-        if UIScreen.main.isEqual(base) {
-            let model = UIDevice.current.ye.machineModel
+        if UIScreen.main.isEqual(self) {
+            let model = UIDevice.current.machineModel
             if model.hasPrefix("iPhone") {
                 if model.hasPrefix("iPhone1") { ppi = 163 }
                 else if model.hasPrefix("iPhone2") { ppi = 163 }

@@ -7,7 +7,6 @@
 //
 
 import XCTest
-@testable import YamExtensionsDemo
 
 class YamExtensionsDemoTests: XCTestCase {
     

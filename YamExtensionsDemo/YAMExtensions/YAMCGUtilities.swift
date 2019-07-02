@@ -8,7 +8,7 @@
 
 import UIKit
 
-func YAMCGRectFit(WithContentMode rect: CGRect, size: CGSize, mode: UIViewContentMode) -> CGRect {
+func YAMCGRectFit(WithContentMode rect: CGRect, size: CGSize, mode: UIView.ContentMode) -> CGRect {
     var newRect = rect.standardized
     var newSize = CGSize(width: size.width < 0 ? -size.width : size.width, height: size.height < 0 ? -size.height : size.height)
     let center = CGPoint(x: newRect.midX, y: newRect.midY)
