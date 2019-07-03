@@ -71,7 +71,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.dataSource = self
         self.view.addSubview(tableView)
 
-
+        tableView.size = CGSize(width: 500, height: 250)
         btn.addBlock(for: .touchUpInside) { (sender) in
             print(UIApplication.shared.cpuUsage)
             tableView.update(with: { (tableview) in

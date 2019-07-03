@@ -28,9 +28,6 @@ extension UIImage {
         UIGraphicsEndImageContext()
         return image
     }
-}
-
-extension UIImage {
     
     /**
      check if has alpha

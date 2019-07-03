@@ -100,25 +100,25 @@ extension String {
     // 验证手机号
     func validatePhono() -> Bool {
         //手机号以13,15,17,18开头，八个 \d 数字字符
-        let phoneString = "^1(3[0-9]|4[57]|5[0-35-9]|7[0135678]|8[0-9])\\d{8}$"
-        let phonePredicate = NSPredicate(format: "SELF MATCHES %@", phoneString)
-        return phonePredicate.evaluate(with: self)
+        let pattern = "^1(3[0-9]|4[57]|5[0-35-9]|7[0135678]|8[0-9])\\d{8}$"
+        let predicate = NSPredicate(format: "SELF MATCHES %@", pattern)
+        return predicate.evaluate(with: self)
     }
     
     // 验证车牌
     func validateLicence() -> Bool {
         
-        let phoneString = "^[\\u4e00-\\u9fa5]{1}[A-Z]{1}[A-Z_0-9]{5}$"
-        let phonePredicate = NSPredicate(format: "SELF MATCHES %@", phoneString)
-        return phonePredicate.evaluate(with: self)
+        let pattern = "^[\\u4e00-\\u9fa5]{1}[A-Z]{1}[A-Z_0-9]{5}$"
+        let predicate = NSPredicate(format: "SELF MATCHES %@", pattern)
+        return predicate.evaluate(with: self)
     }
     
     // 验证密码
     func validatePassword() -> Bool {
         
-        let phoneString = "^[a-zA-Z0-9]{6,20}+$"
-        let phonePredicate = NSPredicate(format: "SELF MATCHES %@", phoneString)
-        return phonePredicate.evaluate(with: self)
+        let pattern = "^[a-zA-Z0-9]{6,20}+$"
+        let predicate = NSPredicate(format: "SELF MATCHES %@", pattern)
+        return predicate.evaluate(with: self)
     }
     
     // 验证邮箱
