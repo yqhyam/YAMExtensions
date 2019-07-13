@@ -36,6 +36,7 @@
 		28085BA622CB2BD20021CA4C /* NSObjectExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28085B8A22CB2BD20021CA4C /* NSObjectExtensions.swift */; };
 		28085BA722CB2BD20021CA4C /* YAMCGUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28085B8B22CB2BD20021CA4C /* YAMCGUtilities.swift */; };
 		281840B42112A98F00116B9A /* NavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281840B32112A98F00116B9A /* NavViewController.swift */; };
+		288FCE7022D97B9C00E273B6 /* PresentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288FCE6F22D97B9C00E273B6 /* PresentVC.swift */; };
 		7C9531351FBEB06B00D9CADB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9531341FBEB06B00D9CADB /* AppDelegate.swift */; };
 		7C9531371FBEB06B00D9CADB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9531361FBEB06B00D9CADB /* ViewController.swift */; };
 		7C95313A1FBEB06B00D9CADB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C9531381FBEB06B00D9CADB /* Main.storyboard */; };
@@ -93,6 +94,7 @@
 		28085B8B22CB2BD20021CA4C /* YAMCGUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YAMCGUtilities.swift; sourceTree = "<group>"; };
 		281840B32112A98F00116B9A /* NavViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavViewController.swift; sourceTree = "<group>"; };
 		2832A21E217D663C00C3CE12 /* YamExtensionsDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "YamExtensionsDemo-Bridging-Header.h"; sourceTree = "<group>"; };
+		288FCE6F22D97B9C00E273B6 /* PresentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentVC.swift; sourceTree = "<group>"; };
 		7C9531311FBEB06B00D9CADB /* YamExtensionsDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YamExtensionsDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C9531341FBEB06B00D9CADB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7C9531361FBEB06B00D9CADB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -211,6 +213,7 @@
 			children = (
 				7C9531341FBEB06B00D9CADB /* AppDelegate.swift */,
 				7C9531361FBEB06B00D9CADB /* ViewController.swift */,
+				288FCE6F22D97B9C00E273B6 /* PresentVC.swift */,
 				281840B32112A98F00116B9A /* NavViewController.swift */,
 				7C9531381FBEB06B00D9CADB /* Main.storyboard */,
 				7C95313B1FBEB06B00D9CADB /* Assets.xcassets */,
@@ -380,6 +383,7 @@
 				28085B9622CB2BD20021CA4C /* UIControlExtensions.swift in Sources */,
 				28085B9922CB2BD20021CA4C /* UIApplicationExtensions.swift in Sources */,
 				28085BA722CB2BD20021CA4C /* YAMCGUtilities.swift in Sources */,
+				288FCE7022D97B9C00E273B6 /* PresentVC.swift in Sources */,
 				28085B9F22CB2BD20021CA4C /* NotificationExtensions.swift in Sources */,
 				28085B9322CB2BD20021CA4C /* UIImageExtensions.swift in Sources */,
 				281840B42112A98F00116B9A /* NavViewController.swift in Sources */,

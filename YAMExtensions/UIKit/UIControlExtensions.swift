@@ -19,11 +19,14 @@ class YAMUIControllBlockTarget {
         self.events = events
         
         //避免被提前释放
-        objc_setAssociatedObject(attachTo, "[\(arc4random()).control]", self, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+//        objc_setAssociatedObject(attachTo, "[\(arc4random()).control]", self, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
     }
     
     deinit {
-        print("UIControllTarget be released")
+        #if DEBUG
+            print("UIControllTarget be released")
+        #else
+        #endif
     }
     
     @objc func invoke(sender: Any) {
@@ -51,6 +54,8 @@ extension UIControl {
         
         let target = YAMUIControllBlockTarget(attachTo: self, block: block, events: events)
         self.addTarget(target, action: invoke, for: events)
+        objc_setAssociatedObject(self, "[\(arc4random()).control]", target, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+
         
         var array = yam_allUIControlBlockTargets()
         array.append(target)

@@ -9,12 +9,10 @@
 import UIKit
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
+
+    var timeout = 0
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // get system version
-        print(UIDevice.systemVersion)
         
         DispatchQueue.main.after(time: 3.0) {
             print("3s")
@@ -54,16 +52,21 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         btn.size = CGSize(width: 30, height: 30)
         btn.backgroundColor = UIColor.blue
         self.view.addSubview(btn)
-        btn.addBlock(for: .touchUpInside) { (sender) in
-            let ani = CABasicAnimation(keyPath: "strokeEnd")
-            ani.fromValue = 0
-            ani.toValue = 1
-            ani.duration = 5
-            ani.isRemovedOnCompletion = false
-            ani.fillMode = CAMediaTimingFillMode.forwards
-            layer.add(ani, forKey: nil)
+//        btn.addTargetClosure { (btn) in
+//            self.present(PresentVC(), animated: true, completion: nil)
+//
+//        }
+        btn.addBlock(for: .touchUpInside) { [weak self] (sender) in
+            self?.present(PresentVC(), animated: true, completion: nil)
+//            let ani = CABasicAnimation(keyPath: "strokeEnd")
+//            ani.fromValue = 0
+//            ani.toValue = 1
+//            ani.duration = 5
+//            ani.isRemovedOnCompletion = false
+//            ani.fillMode = CAMediaTimingFillMode.forwards
+//            layer.add(ani, forKey: nil)
         }
-        
+        print("blockend")
         let tableView = UITableView()
         tableView.size = CGSize(width: self.view.width, height: self.view.height/2.0)
         tableView.top = self.view.height/2.0
@@ -72,18 +75,49 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.view.addSubview(tableView)
 
         tableView.size = CGSize(width: 500, height: 250)
-        btn.addBlock(for: .touchUpInside) { (sender) in
-            print(UIApplication.shared.cpuUsage)
-            tableView.update(with: { (tableview) in
-                tableview.rowHeight = (tableView.rowHeight != 100) ? 100 : 44
-            })
-        }
+//        btn.addBlock(for: .touchUpInside) { (sender) in
+//            tableView.update(with: { (tableview) in
+//                tableview.rowHeight = (tableView.rowHeight != 100) ? 100 : 44
+//            })
+//        }
         
-        let time = Timer(timeInterval: 1, repeats: true) { (timer) in
-        }
-        RunLoop.current.add(time, forMode: RunLoop.Mode.common)
-        
+        observeLag()
     }
+    
+    func observeLag() {
+        var active: CFRunLoopActivity = .allActivities
+
+        let obCallback: CFRunLoopObserverCallBack = { observer, activity, context in
+            if context == nil {//如果没有取到 直接返回
+                
+                return
+            }
+//            active = activity
+            
+        }
+        var context = CFRunLoopObserverContext(version: 0, info: unsafeBitCast(self, to: UnsafeMutablePointer.self), retain: nil, release: nil, copyDescription: nil)
+        let ob = CFRunLoopObserverCreate(kCFAllocatorDefault, CFRunLoopActivity.allActivities.rawValue, true, 0, obCallback, &context)
+        //        let ob = CFRunLoopObserverCreateWithHandler(kCFAllocatorDefault, CFRunLoopActivity.allActivities.rawValue, true, 0, obCallback)
+        CFRunLoopAddObserver(CFRunLoopGetMain(), ob, CFRunLoopMode.commonModes)
+        
+        let sem = DispatchSemaphore.init(value: 0)
+        DispatchQueue.global().async {
+            while (true) {
+                let st = sem.wait(timeout: DispatchTime(uptimeNanoseconds: 50))
+                print("st = ", st)
+                if st.hashValue != 0 {
+                    if active == .beforeSources || active == .afterWaiting {
+                        self.timeout += 1
+                        print(self.timeout)
+                    }
+                }
+            }
+        }
+    }
+//    func observerCallbackFunc() -> CFRunLoopObserverCallBack {
+//
+//        return
+//    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 40
