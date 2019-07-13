@@ -75,49 +75,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.view.addSubview(tableView)
 
         tableView.size = CGSize(width: 500, height: 250)
-//        btn.addBlock(for: .touchUpInside) { (sender) in
-//            tableView.update(with: { (tableview) in
-//                tableview.rowHeight = (tableView.rowHeight != 100) ? 100 : 44
-//            })
-//        }
-        
-        observeLag()
-    }
-    
-    func observeLag() {
-        var active: CFRunLoopActivity = .allActivities
 
-        let obCallback: CFRunLoopObserverCallBack = { observer, activity, context in
-            if context == nil {//如果没有取到 直接返回
-                
-                return
-            }
-//            active = activity
-            
-        }
-        var context = CFRunLoopObserverContext(version: 0, info: unsafeBitCast(self, to: UnsafeMutablePointer.self), retain: nil, release: nil, copyDescription: nil)
-        let ob = CFRunLoopObserverCreate(kCFAllocatorDefault, CFRunLoopActivity.allActivities.rawValue, true, 0, obCallback, &context)
-        //        let ob = CFRunLoopObserverCreateWithHandler(kCFAllocatorDefault, CFRunLoopActivity.allActivities.rawValue, true, 0, obCallback)
-        CFRunLoopAddObserver(CFRunLoopGetMain(), ob, CFRunLoopMode.commonModes)
-        
-        let sem = DispatchSemaphore.init(value: 0)
-        DispatchQueue.global().async {
-            while (true) {
-                let st = sem.wait(timeout: DispatchTime(uptimeNanoseconds: 50))
-                print("st = ", st)
-                if st.hashValue != 0 {
-                    if active == .beforeSources || active == .afterWaiting {
-                        self.timeout += 1
-                        print(self.timeout)
-                    }
-                }
-            }
-        }
     }
-//    func observerCallbackFunc() -> CFRunLoopObserverCallBack {
-//
-//        return
-//    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 40
