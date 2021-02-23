@@ -11,7 +11,7 @@ import Foundation
 extension Dictionary {
     
     ///  Convert dictionary to json string. return nil if an error occurs
-    func jsonStringEncoded() -> String {
+    func toJSON() -> String {
         if JSONSerialization.isValidJSONObject(self) {
             do{
                 let jsonData = try JSONSerialization.data(withJSONObject: self, options: .prettyPrinted)

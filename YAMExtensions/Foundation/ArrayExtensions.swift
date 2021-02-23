@@ -30,4 +30,13 @@ extension Array {
         }
         return ""
     }
+    
+    func contains<T>(of element: T) -> Bool {
+        let elementType = type(of: element)
+        return contains { type(of: $0) == elementType}
+    }
+    
+    public func forEachEnumerated(_ body: @escaping (_ offset: Int, _ element: Element) -> Void) {
+        enumerated().forEach(body)
+    }
 }

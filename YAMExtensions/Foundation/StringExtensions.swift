@@ -11,6 +11,70 @@ import CommonCrypto
 
 extension String {
     
+    func md5() -> String {
+        let str = self.cString(using: String.Encoding.utf8)
+        let strLen = CUnsignedInt(self.lengthOfBytes(using: String.Encoding.utf8))
+        let digestLen = Int(CC_MD5_DIGEST_LENGTH)
+        let result = UnsafeMutablePointer<UInt8>.allocate(capacity: 16)
+        CC_MD5(str!, strLen, result)
+        let hash = NSMutableString()
+        for i in 0 ..< digestLen {
+            hash.appendFormat("%02x", result[i])
+        }
+        free(result)
+        return String(format: hash as String).uppercased()
+    }
+    
+    public var toInt: Int? {
+        return Int(self)
+    }
+    
+    public var toFloat: Float? {
+        return Float(self)
+    }
+    
+    public var toDouble: Double? {
+        return Double(self)
+    }
+    
+    public func indexOf(_ target: Character) -> Int? {
+        #if swift(>=5.0)
+        return self.firstIndex(of: target)?.utf16Offset(in: self)
+        #else
+        return self.firstIndex(of: target)?.encodedOffset
+        #endif
+    }
+    
+    public func subString(to: Int) -> String {
+        #if swift(>=5.0)
+        let endIndex = String.Index(utf16Offset: to, in: self)
+        #else
+        let endIndex = String.Index.init(encodedOffset: to)
+        #endif
+        let subStr = self[self.startIndex..<endIndex]
+        return String(subStr)
+    }
+    
+    public func subString(from: Int) -> String {
+        #if swift(>=5.0)
+        let startIndex = String.Index(utf16Offset: from, in: self)
+        #else
+        let startIndex = String.Index.init(encodedOffset: from)
+        #endif
+        let subStr = self[startIndex..<self.endIndex]
+        return String(subStr)
+    }
+    
+    /// 移除空格
+    public func trim() -> String {
+        return self.trimmingCharacters(in: CharacterSet.whitespaces)
+    }
+    
+    /// compatibility API for NSString
+    public var length: Int {
+        return self.utf16.count
+    }
+    
     static var stringWithUUID: String {
         let uuid = CFUUIDCreate(nil)
         let string = CFUUIDCreateString(nil, uuid)
@@ -100,7 +164,7 @@ extension String {
     // 验证手机号
     func validatePhono() -> Bool {
         //手机号以13,15,17,18开头，八个 \d 数字字符
-        let pattern = "^1(3[0-9]|4[57]|5[0-35-9]|7[0135678]|8[0-9])\\d{8}$"
+        let pattern = "^1[3-9]\\d{9}$"
         let predicate = NSPredicate(format: "SELF MATCHES %@", pattern)
         return predicate.evaluate(with: self)
     }

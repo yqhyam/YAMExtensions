@@ -77,4 +77,36 @@ extension UIFont {
         let font = CGFont(self.fontName as CFString)
         return font
     }
+    
+    /// 中等
+    public static func pingfangSC_medium(ofSize size: CGFloat) -> UIFont {
+        return normalFont(size, "PingFangSC-Medium")
+    }
+
+    /// 常规
+    public static func pingfangSC_regular(ofSize size: CGFloat) -> UIFont {
+        return normalFont(size, "PingFangSC-Regular")
+    }
+    
+    /// 细
+    public static func pingfangSC_light(ofSize size: CGFloat) -> UIFont {
+        return normalFont(size, "PingFangSC-Light")
+    }
+    
+    /// 半黑体
+    public static func pingfangSC_semibold(ofSize size: CGFloat) -> UIFont {
+        return normalFont(size, "PingFangSC-Semibold")
+    }
+    
+    /// 半黑体
+    public static func notoSansHans(ofSize size: CGFloat) -> UIFont {
+        return normalFont(size, "NotoSansMyanmar-Bold")
+    }
+    
+    public static func normalFont(_ size: CGFloat, _ name: String) -> UIFont {
+        guard name.length > 0 else {
+            return UIFont.systemFont(ofSize: size)
+        }
+        return UIFont.init(name: name, size: size) ?? UIFont.systemFont(ofSize: size)
+    }
 }
